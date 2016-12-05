@@ -7,7 +7,7 @@
 ### back-end
 
 #### 설치
- ```javascript
+ ```bash
     npm install node-inicis
  ```
  
