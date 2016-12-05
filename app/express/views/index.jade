@@ -1,0 +1,72 @@
+doctype html
+html(lang="ko")
+    head
+        title Node.js 이니시스 결제 모듈 테스트 웹
+        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css")
+
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        meta(http-equiv="x-ua-compatible" content="ie=edge")
+
+    body
+        div.container(style="padding:64px 16px 16px 16px")
+            h2(style="padding-bottom:24px") 이니시스 결제 테스트
+            div.form-group.row
+                label.col-xs-3.col-form-label(for="price") 금액
+                div.col-xs-9
+                    input.form-control(type="text" placeholder="10000" value=10000 id="price")
+
+            div.form-group.row
+                label.col-xs-3.col-form-label(for="buyeremail") 구매자 이메일
+                div.col-xs-9
+                    input.form-control(type="text" placeholder="test@gmail.com" value="test@gmail.com" id="buyeremail")
+
+            div.form-group.row
+                label.col-xs-3.col-form-label(for="buyername") 구매자 이름
+                div.col-xs-9
+                    input.form-control(type="text" placeholder="홍길동" value='홍길동' id="buyername")
+
+            div.form-group.row
+                label.col-xs-3.col-form-label(for="buyertel") 구매자 연락처
+                div.col-xs-9
+                    input.form-control(type="text" placeholder="010-1234-5678" id="buyertel")
+
+            div.form-group.row
+                label.col-xs-3.col-form-label(for="goodname") 상품 이름
+                div.col-xs-9
+                    input.form-control(type="text" placeholder="도깨비 방망이" value='도깨비 방망이' id="goodname")
+
+            div.form-group.row
+                label.col-xs-3.col-form-label(for="gopaymethod") 결제 방법
+                div.col-xs-9
+                    select.form-control(id="gopaymethod")
+                        option(label='신용카드') Card
+                        option(label='실시간계좌이체(K계좌이체)') DirectBank
+                        option(label='휴대폰') HPP
+                        option(label='OK캐쉬백 포인트') OCBPoint
+                        option(label='GS&POINT') GSPT
+                        option(label='문화상품권') Culture
+                        option(label='스마트문화상품권') DGCL
+                        option(label='도서문화상품권') BCSH
+                        option(label='해피머니상품권') HPMN
+                        option(label='뱅크월렛') EWallet
+                        option(label='신용카드빌링키발급') Auth
+
+            button.btn.btn-primary(type="submit" onclick="pay()") 결제 요청
+
+    script(type='text/javascript', src='https://stdpay.inicis.com/stdjs/INIStdPay.js')
+    script(type='text/javascript', src='https://code.jquery.com/jquery-3.1.1.min.js')
+    script(type='text/javascript', src='https://github.com/GwonHyeok/node-inicis/releases/download/v0.0.1/node-inicis-web-helper.js')
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js')
+    script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js')
+    script(type='text/javascript').
+        NodeINIStdPay.init({paymentUrl: 'http://localhost:3000/payment'});
+
+        function pay() {
+            NodeINIStdPay.pay({
+                price: $('#price').val(),
+                goodname: $('#goodname').val(),
+                buyername: $('#buyername').val(),
+                gopaymethod: $('#gopaymethod').val()
+            });
+        }
